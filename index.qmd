@@ -1,7 +1,7 @@
 ---
 title: "Social Survey Analytics Using MCA"
 subtitle: "This is a Report Template Quarto"
-author: "Student Name (Advisor: Dr. Cohen)"
+author: "Matthew Beck<br>Min Zhong<br>Kaitlin Kosko<br>Advisor: Dr. Cohen"
 date: '`r Sys.Date()`'
 format:
   html:
