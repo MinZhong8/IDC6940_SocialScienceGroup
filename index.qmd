@@ -1,6 +1,6 @@
 ---
-title: "Social Survey Analytics Using MCA"
-subtitle: "This is a Report Template Quarto"
+title: "Identify Latent Dimensions of Digital Engagement and Social Capital using the 2024 GSS"
+subtitle: "Social Survey Analytics Using MCA"
 author: "Matthew Beck<br>Min Zhong<br>Kaitlin Kosko<br>Advisor: Dr. Cohen"
 date: '`r Sys.Date()`'
 format:
