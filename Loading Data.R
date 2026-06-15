@@ -2,12 +2,13 @@ library(haven)
 library(here)
 library(tidyverse)
 
-allGSSdata <- read_sas(here::here("GSS_sas", "gss7224_r3.sas7bdat"))
+allGSSdata <- read_sas(here::here("..","GSS_sas", "gss7224_r3.sas7bdat"))
 
 variables <- c(
   ## Demographics
   'EDUC', #level of education
   'CLASS', #self-assessed class standing
+  'HISPANIC', #id as hispanic
   'WRKSTAT', #employment status
   'MARITAL', #marital status
   'AGE', #age
@@ -15,7 +16,11 @@ variables <- c(
   'SEX',
   #'RACE',
   #'INCOME16',
-  'RELIG', #religion
+  #'RELIG', #religion
+  'RELTRAD', #This is also religion, but a newer, more inclusive. the RELIG variable is a holdeover from earlier surveys
+  'ATTEND', #frequency of attending religious services
+  'RELPERSN', #strength of religious self-id
+
   
   ## General Attitudes
   #'TRUST', # Trust in most people
