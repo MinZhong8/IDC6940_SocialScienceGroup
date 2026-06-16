@@ -13,11 +13,12 @@ MCAexclude = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX
 suppVarNames = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
 
 #creating dataframe that ONLY has supplementary variables
-suppVars = data %>% select(all_of(suppVarNames)) %>% mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))
+suppVars = data |> select(all_of(suppVarNames)) |>
+  mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))      # here I'm making all the columns EXCEPT for EDUC, AGE, and CHILDS into factors because these three are numeric
 
 #create dataset for MCA using original ordinal encoding (making sure to change data into factor data type - numeric data type will not work in MCA!)
 MCAdata1 <- data |> select(!all_of(MCAexclude)) |>
-  select(!all_of(c("INTRUST","TRPPL"))) |>              #I'm also ecluding these two variables because they have a very high number of observation levels
+  select(!all_of(c("INTRUST","TRPPL"))) |>              #I'm also excluding these two variables because they have a very high number of observation levels
   lapply(factor) |> data.frame()                        #Making it into a factor datatype
 
 #creating MCA object using FactoMineR
@@ -32,18 +33,16 @@ mca1 <- MCA(MCAdata1)
 #I think this works? idk my brain kind of hurts with this code
 
 likert2Boolean <- function(x){
-  #first create a boolean that is True if x is greater than median of current column (current column in the across() function iteration)
-  #then make boolean into an integer for ease of reading (not necessary though, can be omitted)
-  #then make integer into factor so that MCA can be done.
-  (x>median(data[[cur_column()]])) %>% as.integer() %>% as.factor()
+  (x>median(data[[cur_column()]])) |>         #this will be a boolean that will be true if x is greater than the median of the column
+    as.integer() |> as.factor()               #then turning boolean into an integer for ease of reading graph and then into a factor
 }
 
 MCAdata2 <- data |>
   select(!all_of(MCAexclude)) |>                        # selecting variables not in the excluded set
   mutate(across(everything(),likert2Boolean))           # applying my likert to boolean function
 
-## add suplementary vars
-MCAdata2supps <- cbind(MCAdata2,suppVars)
+## add suplementary vars - use this one with Factoshiny
+MCAdata2WithSupps <- cbind(MCAdata2,suppVars)
 
 
 #Some interpretation of the variables appearing on the plot: Variable_1 corresponds to the people who responded at a higher response level than the median
