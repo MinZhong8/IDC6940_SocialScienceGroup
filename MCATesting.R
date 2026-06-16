@@ -49,3 +49,20 @@ MCAdata2WithSupps <- cbind(MCAdata2,suppVars)
 # generally indicating less internet usage or ability. 
 
 mca2 <- MCA(MCAdata2)
+
+MCAdata3 <- data |> select(!all_of(MCAexclude)) |>
+  select(!all_of(c("INTRUST","TRPPL","SOCREL","SOCOMMUN","SOCFREND","SOCBAR"))) |>              #I'm also excluding these two variables because they have a very high number of observation levels
+  mutate(across(everything(),likert2Boolean)) 
+
+mca3 <-MCA(MCAdata3)
+
+library(homals)
+pcadata <- MCAdata2 <- data |>
+  select(!all_of(MCAexclude))
+
+res <- homals(pcadata, rank=1,level='ordinal')
+plot(res)
+
+pca1 = PCA(pcadata, graph=T)
+pcaVar <- get_pca_var(pca1)
+print(pcaVar)

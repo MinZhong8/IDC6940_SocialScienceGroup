@@ -21,52 +21,19 @@ editor:
 Slides: [slides.html](slides.html){target="_blank"} ( Go to `slides.qmd`
 to edit)
 
-::: callout-important
-**Remember:** Your goal is to make your audience understand and care
-about your findings. By crafting a compelling story, you can effectively
-communicate the value of your data science project.
-
-Carefully read this template since it has instructions and tips to
-writing!
-
-Nice report!
-:::
 
 ## Introduction
 
-The introduction should:
+Our project uses the methodology of Multiple Correspondence Analysis (MCA) in order to perform an exploratory analysis on data derived from the General Social Survey examining the topic of digital inequality.
+Dimensionality reduction has been a strategy used by scientists as a means of exploratory data analysis. This allows scientists to visually analyze high-dimensional data that would otherwise be difficult to interpret, thereby recognizing associations between variables. One of the most prominent methods for this is Principal Component Analysis, or PCA, which identifies linear combinations of features which maximize variance.
 
--   Develop a storyline that captures attention and maintains interest.
+However, a limitation of PCA is that it only can be used on quantitative, numeric data. For datasets with categorical data, Multiple Component Analysis has been developed. One area in which been able to use MCA is in social scientific fields like sociology, psychology, and political science, especially in the analysis of social surveys which use categorical responses to questions, including yes/no questions and so-called ‘Likert scale’ questions, which ask the respondent to answer in a range from, for example, “strongly disagree” to “strongly agree”. One particular example of such a survey is the General Social Survey, administered by NORC. This is the largest such survey in the United States and has been administered for decades to a representative sample of US citizens. The GSS and other such large surveys are perfect for data mining and exploratory data analysis because of their large sample size and the large variety of questions asked on different topics which researchers can use to discover connections between phenomena and underlying patterns of social activity.
 
--   Your audience is your peers
+In particular, we will be using MCA analysis on the GSS to examine the effects of digital technology on social behavior. In the past decades, digital technology entered into the home, becoming general purpose, woven into everyday life. It has become an integral part of individual life and has changed how people work, study, communicate and participate in society. Because of this important role, it has been discussed through different perspectives. Early studies discussed the “digital divide,” which examines the question of internet access. Recently, research has become broader, expanding to the concept of “digital capital,” a concept which includes digital skills, educational background, and the ability to benefit from online resources (Lybeck et al., 2024). As a result, simple connectivity is no longer sufficient to explain digital inequality; it is a multidimensional concept that involves access, usage patterns, and digital outcomes（Understanding the Levels of Digital Inequality Within the City，2024）.
 
--   Clearly state the problem or question you're addressing.
+Recent researches suggests that individuals would like to participate in a variety of online activities if they have higher digital capital (Ruiu & Ragnedda, 2020). Individuals who shows less online activity usually have lower digital skills, even if they have access to digital technologies. These studies suggest that online participation is associated with broader patterns rather than separate and unrelated behaviors. Meanwhile, Social capital is a complex concept that cannot be measured by a single variable. It has long been discussed by sociologists and it refers to the resources and benefits individuals gain through social networks, community involvement, civic participation, and trust-based relationships. Previous studies have applied principal component analysis(PCA) to identify underlying dimensions of social capital by using multiple survey indicators (Gannon & Roberts, 2020). These approaches suggest that observed measures of social participation and social connectedness may reflect underlying latent dimensions of social capital. 
 
-<!-- -->
-
--   Introduce why it is relevant needs.
-
--   Provide an overview of your approach.
-
-Example of writing including citing references:
-
-*This is an introduction to ..... regression, which is a non-parametric
-estimator that estimates the conditional expectation of two variables
-which is random. The goal of a kernel regression is to discover the
-non-linear relationship between two random variables. To discover the
-non-linear relationship, kernel estimator or kernel smoothing is the
-main method to estimate the curve for non-parametric statistics. In
-kernel estimator, weight function is known as kernel function
-[@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
-The PCA [@daffertshofer2004pca]*. Topology can be used in machine
-learning [@adams2021topology]
-
-For Symbolic Regression [@wang2019symbolic] *This is my work and I want
-to add more work...*
-
-Cite new paper [@su2012linear]
-
-Classification of Knee OA was studied here [@guida2021knee]
+In this study, we will use data from the 2024 General Social Survey (GSS) to examine whether the association of digital engagement and social capital can be explained through a smaller number of underlying dimensions. Considering that many selected variables are categorical, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions. The study aims to better understand how these concepts are related in contemporary American society.
 
 ## Methods
 
@@ -116,9 +83,6 @@ library(ggrepel)
 library(dslabs)
 ```
 
-```{python}
-import pandas as pd
-```
 
 ```{r, warning=FALSE, echo=TRUE}
 # Load Data

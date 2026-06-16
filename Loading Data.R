@@ -45,6 +45,8 @@ variables <- c(
   'INTRNETUSE', #frequency of internet use in past 12 months
   'INTPRFSSNL',
   'UNPLUG',
+  'INTHOME', #frequency of internet access at home
+  'INTPUB', #frewuency of internet access in public
   'INTSKILL', #skill at using internet
   'INTSURF', #skill at online searches
   'INTLITERACY', #knowledge of online information discretion
@@ -57,6 +59,7 @@ variables <- c(
   'INTFNCL', #uses internet for financial transactions
   'INTMEET', #more comfortable meeting people online
   'INTLNLY', #feel lonely without internet
+  'INTVIEWS', #frequency of discussing politics online
   'INTRUST', #Trust for people only met online
   'TRPPL' #Trust in others
 )
