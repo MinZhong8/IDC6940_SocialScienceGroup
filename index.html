@@ -21,7 +21,26 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
-</style>
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging-indent div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}</style>
 
 
 <script>/*!
@@ -2208,8 +2227,8 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Our project uses the methodology of Multiple Correspondence Analysis (MCA) in order to perform an exploratory analysis on data derived from the General Social Survey examining the topic of digital inequality. Dimensionality reduction has been a strategy used by scientists as a means of exploratory data analysis. This allows scientists to visually analyze high-dimensional data that would otherwise be difficult to interpret, thereby recognizing associations between variables. One of the most prominent methods for this is Principal Component Analysis, or PCA, which identifies linear combinations of features which maximize variance.</p>
 <p>However, a limitation of PCA is that it only can be used on quantitative, numeric data. For datasets with categorical data, Multiple Component Analysis has been developed. One area in which been able to use MCA is in social scientific fields like sociology, psychology, and political science, especially in the analysis of social surveys which use categorical responses to questions, including yes/no questions and so-called ‘Likert scale’ questions, which ask the respondent to answer in a range from, for example, “strongly disagree” to “strongly agree”. One particular example of such a survey is the General Social Survey, administered by NORC. This is the largest such survey in the United States and has been administered for decades to a representative sample of US citizens. The GSS and other such large surveys are perfect for data mining and exploratory data analysis because of their large sample size and the large variety of questions asked on different topics which researchers can use to discover connections between phenomena and underlying patterns of social activity.</p>
-<p>In particular, we will be using MCA analysis on the GSS to examine the effects of digital technology on social behavior. In the past decades, digital technology entered into the home, becoming general purpose, woven into everyday life. It has become an integral part of individual life and has changed how people work, study, communicate and participate in society. Because of this important role, it has been discussed through different perspectives. Early studies discussed the “digital divide,” which examines the question of internet access. Recently, research has become broader, expanding to the concept of “digital capital,” a concept which includes digital skills, educational background, and the ability to benefit from online resources (Lybeck et al., 2024). As a result, simple connectivity is no longer sufficient to explain digital inequality; it is a multidimensional concept that involves access, usage patterns, and digital outcomes（Understanding the Levels of Digital Inequality Within the City，2024）.</p>
-<p>Recent researches suggests that individuals would like to participate in a variety of online activities if they have higher digital capital (Ruiu &amp; Ragnedda, 2020). Individuals who shows less online activity usually have lower digital skills, even if they have access to digital technologies. These studies suggest that online participation is associated with broader patterns rather than separate and unrelated behaviors. Meanwhile, Social capital is a complex concept that cannot be measured by a single variable. It has long been discussed by sociologists and it refers to the resources and benefits individuals gain through social networks, community involvement, civic participation, and trust-based relationships. Previous studies have applied principal component analysis(PCA) to identify underlying dimensions of social capital by using multiple survey indicators (Gannon &amp; Roberts, 2020). These approaches suggest that observed measures of social participation and social connectedness may reflect underlying latent dimensions of social capital.</p>
+<p>In particular, we will be using MCA analysis on the GSS to examine the effects of digital technology on social behavior. In the past decades, digital technology entered into the home, becoming general purpose, woven into everyday life. It has become an integral part of individual life and has changed how people work, study, communicate and participate in society. Because of this important role, it has been discussed through different perspectives. Early studies discussed the “digital divide,” which examines the question of internet access. Recently, research has become broader, expanding to the concept of “digital capital,” a concept which includes digital skills, educational background, and the ability to benefit from online resources (<span class="citation" data-cites="lybeckDigitalDivideDigital2024">Lybeck et al. (<a href="#ref-lybeckDigitalDivideDigital2024" role="doc-biblioref">2024</a>)</span>). As a result, simple connectivity is no longer sufficient to explain digital inequality; it is a multidimensional concept that involves access, usage patterns, and digital outcomes（<span class="citation" data-cites="reddickUnderstandingLevelsDigital2024">Reddick et al. (<a href="#ref-reddickUnderstandingLevelsDigital2024" role="doc-biblioref">2024</a>)</span>）.</p>
+<p>Recent researches suggests that individuals would like to participate in a variety of online activities if they have higher digital capital (<span class="citation" data-cites="ruiuDigitalCapitalOnline2020">Ruiu and Ragnedda (<a href="#ref-ruiuDigitalCapitalOnline2020" role="doc-biblioref">2020</a>)</span>). Individuals who shows less online activity usually have lower digital skills, even if they have access to digital technologies. These studies suggest that online participation is associated with broader patterns rather than separate and unrelated behaviors. Meanwhile, Social capital is a complex concept that cannot be measured by a single variable. It has long been discussed by sociologists and it refers to the resources and benefits individuals gain through social networks, community involvement, civic participation, and trust-based relationships. Previous studies have applied principal component analysis(PCA) to identify underlying dimensions of social capital by using multiple survey indicators (<span class="citation" data-cites="gannonSocialCapitalExploring2020">Gannon and Roberts (<a href="#ref-gannonSocialCapitalExploring2020" role="doc-biblioref">2020</a>)</span>). These approaches suggest that observed measures of social participation and social connectedness may reflect underlying latent dimensions of social capital.</p>
 <p>In this study, we will use data from the 2024 General Social Survey (GSS) to examine whether the association of digital engagement and social capital can be explained through a smaller number of underlying dimensions. Considering that many selected variables are categorical, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions. The study aims to better understand how these concepts are related in contemporary American society.</p>
 </section>
 <section id="methods" class="level2">
@@ -2227,11 +2246,25 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 </section>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="references" class="level2 unnumbered">
+
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-gannonSocialCapitalExploring2020" class="csl-entry" role="listitem">
+Gannon, Brenda, and Jennifer Roberts. 2020. <span>“Social Capital: Exploring the Theory and Empirical Divide.”</span> <em>Empirical Economics</em> 58 (3): 899–919. <a href="https://doi.org/10.1007/s00181-018-1556-y">https://doi.org/10.1007/s00181-018-1556-y</a>.
+</div>
+<div id="ref-lybeckDigitalDivideDigital2024" class="csl-entry" role="listitem">
+Lybeck, Robin, Ilkka Koiranen, and Aki Koivula. 2024. <span>“From Digital Divide to Digital Capital: The Role of Education and Digital Skills in Social Media Participation.”</span> <em>Universal Access in the Information Society</em> 23 (4): 1657–69. <a href="https://doi.org/10.1007/s10209-022-00961-0">https://doi.org/10.1007/s10209-022-00961-0</a>.
+</div>
+<div id="ref-reddickUnderstandingLevelsDigital2024" class="csl-entry" role="listitem">
+Reddick, Christopher, Roger Enriquez, Richard Harris, and Judith Flores. 2024. <span>“Understanding the Levels of Digital Inequality Within the City: <span>An</span> Analysis of a Survey.”</span> <em>Cities</em> 148 (May): 104844. <a href="https://doi.org/10.1016/j.cities.2024.104844">https://doi.org/10.1016/j.cities.2024.104844</a>.
+</div>
+<div id="ref-ruiuDigitalCapitalOnline2020" class="csl-entry" role="listitem">
+Ruiu, Maria Laura, and Massimo Ragnedda. 2020. <span>“Digital Capital and Online Activities: <span>An</span> Empirical Analysis of the Second Level of Digital Divide.”</span> <em>First Monday</em>, ahead of print, June. <a href="https://doi.org/10.5210/fm.v25i7.10855">https://doi.org/10.5210/fm.v25i7.10855</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
