@@ -2,8 +2,10 @@ library(haven)
 library(here)
 library(tidyverse)
 
+#Import entire GSS SAS file
 allGSSdata <- read_sas(here::here("..","GSS_sas", "gss7224_r3.sas7bdat"))
 
+#selecting variables to use
 variables <- c(
   ## Demographics
   'EDUC', #level of education
@@ -27,7 +29,7 @@ variables <- c(
   #'FAIR', #Belief that others will take advantage of them
   
   
-  ## Computer usage in core questions
+  ## Computer usage in core questions - including these results in a lot of missing values
   #'COMPUSE',
   #'WEBMOB',
   #'BROADBAND',
@@ -60,10 +62,10 @@ variables <- c(
 )
 
 
+#creating a subset of data including just the selected variables and removing all observations that contain NA values
 data <- allGSSdata %>% select(variables) %>% na.omit()
-
-#data <- data %>% filter(INTRNETUSE != F)
 
 summary(data)
 
+#exporting dataframe to csv file
 data %>% write.csv('data.csv')

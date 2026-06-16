@@ -7,30 +7,40 @@ library('tidyverse')
 data <- read.csv('data.csv') %>% select(!X)
 
 #data columns to exclude from MCA
-MCAexclude = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN", "INTRUST","TRPPL")
+MCAexclude = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
 
 #data columns for supplementary variables
 suppVarNames = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
 
+#creating dataframe that ONLY has supplementary variables
 suppVars = data %>% select(all_of(suppVarNames)) %>% mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))
 
-#create dataset for MCA
-MCAdata1 <- data %>% select(!all_of(MCAexclude)) %>% lapply(factor) %>% data.frame()
+#create dataset for MCA using original ordinal encoding (making sure to change data into factor data type - numeric data type will not work in MCA!)
+MCAdata1 <- data |> select(!all_of(MCAexclude)) |>
+  select(!all_of(c("INTRUST","TRPPL"))) |>              #I'm also ecluding these two variables because they have a very high number of observation levels
+  lapply(factor) |> data.frame()                        #Making it into a factor datatype
 
+#creating MCA object using FactoMineR
 mca1 <- MCA(MCAdata1)
 
-#This will open a web browser interface
+#Running the below code will open a web app via Factoshiny
 #Factoshiny(MCAdata1)
 
 #Going to try encoding the variable differently - instead of creating a boolean variable for each level of each variable, this will
 ##create a boolean that signifies if the variable is greater than the median value.
 
 #I think this works? idk my brain kind of hurts with this code
-MCAdata2 <- data %>% select(!all_of(MCAexclude) | c("INTRUST","TRPPL") ) %>% mutate(across(everything(),function(x){
-  as.integer(x>median(data[[cur_column()]]))
-    }
-    )
-  ) %>% lapply(factor) %>% data.frame()
+
+likert2Boolean <- function(x){
+  #first create a boolean that is True if x is greater than median of current column (current column in the across() function iteration)
+  #then make boolean into an integer for ease of reading (not necessary though, can be omitted)
+  #then make integer into factor so that MCA can be done.
+  (x>median(data[[cur_column()]])) %>% as.integer() %>% as.factor()
+}
+
+MCAdata2 <- data |>
+  select(!all_of(MCAexclude)) |>                        # selecting variables not in the excluded set
+  mutate(across(everything(),likert2Boolean))           # applying my likert to boolean function
 
 ## add suplementary vars
 MCAdata2supps <- cbind(MCAdata2,suppVars)
