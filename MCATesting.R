@@ -57,7 +57,7 @@ MCAdata3 <- data |> select(!all_of(MCAexclude)) |>
 mca3 <-MCA(MCAdata3)
 
 library(homals)
-pcadata <- MCAdata2 <- data |>
+pcadata <- MCAdata3 <- data |>
   select(!all_of(MCAexclude))
 
 res <- homals(pcadata, rank=1,level='ordinal')
