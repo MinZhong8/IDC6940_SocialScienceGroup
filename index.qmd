@@ -32,8 +32,26 @@ Recent researches suggests that individuals would like to participate in a varie
 
 In this study, we will use data from the 2024 General Social Survey (GSS) to examine whether the association of digital engagement and social capital can be explained through a smaller number of underlying dimensions. Considering that many selected variables are categorical, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions. The study aims to better understand how these concepts are related in contemporary American society.
 
-## Methods
+## Methodology
 
+In this study, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions of digital engagement and social capital using categorical data from the 2024 General Social Survey. MCA extends correspondence analysis to settings with multiple categorical variables and can be viewed as a generalization of principal component analysis when variables are categorical rather than quantitative (Abdi & Valentin, 2007). 
+
+For a dataset, let $X$ denote the indicator matrix. $I$ represents individuals and $J$ represents categories across the variables.  MCA applies correspondence analysis to the $I×J$ indicator matrix $X$, where Z$=X/N$ is the probability matrix, $r$ and $c$ are row and column marginals. Also, $\lambda = \Delta^2$ is the eigenvalue representing the inertia(variance) explained by each dimension. The Chi-square distance between individuals is:
+
+$$ d^2_{i,i'} = \frac{I}{J}\sum^{K}_{k=1}\frac{1}{I_k}\left(x_{ik} - x_{i'k}\right)^2 $$
+with the frequency of category $k$, so rare categories carry greater weight. Transition relations link individuals to categories:
+
+$$ F_s(i) = \frac{1}{\sqrt{\lambda_s}}\sum^{J}_{j=1} \sum^{K_j}_{k=1}\frac{x_{ik}}{J}G_s(k) $$
+$$ G_s(k) = \frac{1}{\sqrt{\lambda_s}}\sum^{I}_{i=1}\frac{x_{ik}}{I_k}F_s(i) $$
+
+The generalized singular value decomposition (GSVD) applied to the standardized residual matrix in correspondence analysis, then the singular value decomposition (SVD) equation:
+
+$$ \mathbf{D_r}^{1/2}(\mathbf{Z}-\mathbf{rc}^T)\mathbf{D_c}^{-1/2} = \mathbf{P \Delta Q}^T $$
+Unlike PCA, which requires quantitative variables and assumes linear relationships, MCA is appropriate here because all GSS variables are categorical. Our study also aligns with Bourdieu's relational approach to social space, where positions are defined by distances and proximities between properties. For those supplementary demographic variables, such as age, education, income, gender), will be projected onto the factorial plane but not contributing to dimension construction. Eigenvalues are corrected by using Benzécri's formula:
+
+$$  c\lambda_l = \left[\left( \frac{K}{K-1} \right)\left( \lambda_l - \frac{1}{K} \right)\right]^2 \quad\text{ if }\quad \lambda_l > \frac{1}{K} $$
+
+Analyses in this study are conducted in RStudio using FactoMineR for computation and Factoshiny for interactive graphical exploration, enabling dynamic selection of variables, adjustment of visualization parameters, and examination of factorial planes. Dimensions are retained based on modified eigenvalue rates above 1/K. Supplementary hierarchical clustering using Ward's method identifies respondent typologies, with interpretation guided by category contributions, squared cosines, and v-tests indicating significant deviations from the mean (@Husson).
 
 #### R libraries used
 ```{r, message=FALSE}
