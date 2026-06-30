@@ -34,7 +34,7 @@ In this study, we will use data from the 2024 General Social Survey (GSS) to exa
 
 ## Methodology
 
-In this study, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions of digital engagement and social capital using categorical data from the 2024 General Social Survey. MCA extends correspondence analysis to settings with multiple categorical variables and can be viewed as a generalization of principal component analysis when variables are categorical rather than quantitative (Abdi & Valentin, 2007). 
+In this study, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions of digital engagement and social capital using categorical data from the 2024 General Social Survey. MCA extends correspondence analysis to settings with multiple categorical variables and can be viewed as a generalization of principal component analysis when variables are categorical rather than quantitative (@Abdi). 
 
 For a dataset, let $X$ denote the indicator matrix. $I$ represents individuals and $J$ represents categories across the variables.  MCA applies correspondence analysis to the $I×J$ indicator matrix $X$, where Z$=X/N$ is the probability matrix, $r$ and $c$ are row and column marginals. Also, $\lambda = \Delta^2$ is the eigenvalue representing the inertia(variance) explained by each dimension. The Chi-square distance between individuals is:
 
@@ -145,8 +145,6 @@ This subset of the data can be easily loaded from the CSV file without taking up
 data <- read.csv('data.csv') %>% select(!X)
 
 print(paste("Dimensions of dataframe: ",dim(data)[1],"x", dim(data)[2]))
-suppVarNames = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
-
 ```
 
 #### Histograms of Variables
@@ -171,6 +169,9 @@ First, histograms of the supplemental demographic variables are shown below. The
 
 ```{r, message=FALSE}
 #| fig-height: 7
+
+suppVarNames = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
+
 supplementary.long <- data |> pivot_longer(all_of(suppVarNames),names_to = "variable", values_to = "value")
 
 ggplot(supplementary.long, aes(x=value, color=variable,fill=variable)) +
@@ -239,7 +240,36 @@ ggplot(social.long, aes(x=value, color=variable,fill=variable)) +
   theme(legend.position = "none")
 ```
 ### Modeling and Results
+#### Preparing data for MCA
 
+When running MCA analysis, an $IxJ$ indicator matrix is created where $I$ is the number of observations and $J = \sum^{P}_{p=1}j_p$ with $P$ being the number of variables in the original dataset and $j_p$ being the number of observation levels of variable $p$. This means that $J$ will be large when there are many observation levels of each variable; also, this causes problems when dealing with ordinal data, as the each ordinal level will essentially have an indicator variable created for it during MCA. This can be corrected by transforming the ordinal variables in the original dataset into boolean categorical variables which equal 1 if the response was higher than the median and 0 if less than or equal to the median.
+
+```{R}
+#data columns to exclude from MCA
+MCAexclude = suppVarNames
+
+#creating dataframe that ONLY has supplementary variables
+suppVars = data |> select(all_of(suppVarNames)) |>
+  mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))      # here I'm making all the columns EXCEPT for EDUC, AGE, and CHILDS into factors because these three are numeric
+
+#create dataset for MCA using original ordinal encoding (making sure to change data into factor data type - numeric data type will not work in MCA!)
+MCAdata1 <- data |> select(!all_of(MCAexclude)) |>
+  select(!all_of(c("INTRUST","TRPPL"))) |>              #I'm also excluding these two variables because they have a very high number of observation levels
+  lapply(factor) |> data.frame()                        #Making it into a factor datatype
+
+#creating MCA object using FactoMineR
+mca1 <- MCA(MCAdata1)
+
+
+likert2Boolean <- function(x){
+  (x>median(data[[cur_column()]])) |>         #this will be a boolean that will be true if x is greater than the median of the column
+    as.integer() |> as.factor()               #then turning boolean into an integer for ease of reading graph and then into a factor
+}
+
+MCAdata2 <- data |>
+  select(!all_of(MCAexclude)) |>                        # selecting variables not in the excluded set
+  mutate(across(everything(),likert2Boolean))           # applying my likert to boolean function
+```
 
 ### Conclusion
 
