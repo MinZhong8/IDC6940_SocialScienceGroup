@@ -70,5 +70,17 @@ data <- allGSSdata %>% select(variables) %>% na.omit()
 
 summary(data)
 
+
+#Exporting variable names and descriptions to CSV file
+n <- ncol(data)
+labels_list <- map(1:n, function(x) attr(data[[x]], "label") )
+
+# if a vector of character strings is preferable
+labels_vector <- map_chr(1:n, function(x) attr(data[[x]], "label") )
+
+# to make a simple codebook
+variable_name <- names(data)
+tibble(variable_name, description = labels_vector) %>% write_csv('VariableDescriptions.csv')
+
 #exporting dataframe to csv file
 data %>% write.csv('data.csv')

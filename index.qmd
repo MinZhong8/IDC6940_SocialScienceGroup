@@ -34,10 +34,192 @@ In this study, we will use data from the 2024 General Social Survey (GSS) to exa
 
 ## Methods
 
+
+#### R libraries used
+```{r, message=FALSE}
+library('FactoMineR')
+library('Factoshiny')
+library('factoextra')
+library('tidyverse')
+library('haven')
+library('here')
+```
 ## Analysis and Results
 
-### Data Exploration and Visualization
+### Data Exploration and Visualizations
+#### Loading dataset
+First, the dataset was obtained from the NORC website in an SAS file format. These data were loaded into R and a subset of the full dataset was created, containing only the relevant variables and dropping null observations. This was then exported as a CSV file to be able to be used repeatedly without importing the full dataset.
+```{r, eval=FALSE}
+#Import entire GSS SAS file
+allGSSdata <- read_sas(here::here("..","GSS_sas", "gss7224_r3.sas7bdat"))
 
+#selecting variables to use
+variables <- c(
+  ## Demographics
+  'EDUC', #level of education
+  'CLASS', #self-assessed class standing
+  'HISPANIC', #id as hispanic
+  'WRKSTAT', #employment status
+  'MARITAL', #marital status
+  'AGE', #age
+  'CHILDS', #number of children
+  'SEX',
+  #'RACE',
+  #'INCOME16',
+  #'RELIG', #religion
+  'RELTRAD', #This is also religion, but a newer, more inclusive. the RELIG variable is a holdeover from earlier surveys
+  'ATTEND', #frequency of attending religious services
+  'RELPERSN', #strength of religious self-id
+
+  
+  ## General Attitudes
+  #'TRUST', # Trust in most people
+  #'FAIR', #Belief that others will take advantage of them
+  
+  
+  ## Computer usage in core questions - including these results in a lot of missing values
+  #'COMPUSE',
+  #'WEBMOB',
+  #'BROADBAND',
+  #'MOBILEDATA',
+  
+  #Social interaction
+  'SOCREL', #frequency of social interaction with relatives
+  'SOCOMMUN', #frequency of social interaction with neighbors
+  'SOCFREND', #frequency of social interaction with friends
+  'SOCBAR', #frequency of going to bar
+  
+  ## ISSP Digital Societies
+  'INTRNETUSE', #frequency of internet use in past 12 months
+  'INTPRFSSNL',
+  'UNPLUG',
+  'INTHOME', #frequency of internet access at home
+  'INTPUB', #frewuency of internet access in public
+  'INTSKILL', #skill at using internet
+  'INTSURF', #skill at online searches
+  'INTLITERACY', #knowledge of online information discretion
+  'INTAPPS', #skill at learning new software
+  'INTCOMM', #frequency of online communication
+  'INTSHARE', #frequency of sharing photos and videos
+  'INTSEARCH', #frequency of search
+  'INTGAME', #uses internet for video games
+  'INTSTREAM', #uses internet for streaming music or video
+  'INTFNCL', #uses internet for financial transactions
+  'INTMEET', #more comfortable meeting people online
+  'INTLNLY', #feel lonely without internet
+  'INTVIEWS', #frequency of discussing politics online
+  'INTRUST', #Trust for people only met online
+  'TRPPL' #Trust in others
+)
+
+
+#creating a subset of data including just the selected variables and removing all observations that contain NA values
+data <- allGSSdata %>% select(variables) %>% na.omit()
+
+summary(data)
+
+#exporting dataframe to csv file
+data %>% write.csv('data.csv')
+```
+
+This subset of the data can be easily loaded from the CSV file without taking up the multiple gigabytes of RAM that is used by the full dataset. This subset which will be used for further analysis shows 975 observations of 35 variables.
+```{r}
+data <- read.csv('data.csv') %>% select(!X)
+
+print(paste("Dimensions of dataframe: ",dim(data)[1],"x", dim(data)[2]))
+suppVarNames = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
+
+```
+
+#### Histograms of Variables
+Our variables divide into two categories. First, there are variables relating to demographic information of the respondent such as age, sex, and marital status. These will not be used in the main MCA analysis but will be used as supplementary variables. The second category consists of the variables that will be used for MCA analysis, and consist of questions relating the respondent's usage of digital devices as well as questions relating to the respondent's social life.
+
+First, histograms of the supplemental demographic variables are shown below. The variable names are as follows:
+
+| Variable Name |Variable Type      | GSS Description           |
+|------------------|--------------------|-----------------------------------------------------|
+| AGE               | Numeric (Integer) | Age of Respondent     |
+|ATTEND             | Ordinal           | How often Respondent attends religious services|
+|CHILDS             | Numeric (Integer) | Number of children|
+|CLASS              | Ordinal           | Subjective class identification|
+|EDUC               | Numeric (Integer) | Highest year of school completed|
+|HISPANIC           | Categorical       | Respondent Hispanic Specific|
+|MARITAL            | Categorical       | Marital Status of Respondent|
+|RELPERSN           | Ordinal (Likert)  | Respondent consider self a religious person |
+|RELTRAD            | Categorical       | Religious tradition |
+| SEX               | Categorical       | Respondents sex |
+| WRKSTAT           | Categorical       | Labor force status |
+
+
+```{r, message=FALSE}
+#| fig-height: 7
+supplementary.long <- data |> pivot_longer(all_of(suppVarNames),names_to = "variable", values_to = "value")
+
+ggplot(supplementary.long, aes(x=value, color=variable,fill=variable)) +
+  facet_wrap(~variable, scales='free', ncol=3) +
+  geom_bar() +
+  theme(legend.position = "none")
+
+```
+
+Next, the histograms of variables relating to usage of and additutes towards digital technology are shown below:
+
+| Variable Name |Variable Type      | GSS Description           |
+|------------------|--------------------|-----------------------------------------------------|
+| INTAPPS           | Ordinal (Likert)  | Respondent's skill at learning new software |
+| INTCOMM           | Ordinal (Likert)  | How often Respondent uses internet for communication|
+| INTFNCL           | Ordinal (Likert)  | How often Respondent uses internet for financial transactions|
+| INTGAME           | Ordinal (Likert)  | How often Respondent uses internet for video games|
+| INTHOME           | Ordinal (Likert)  | Frequency Respondent has home internet access|
+| INTLITERACY       | Ordinal (Likert)  | Respondent's knowledge of online information discretion|
+| INTLNLY           | Ordinal (Likert)  | Respondent would feel lonely without internet?|
+| INTMEET           | Ordinal (Likert)  | Respondent more comfortable meeting people online?|
+| INTPRFSSNL        | Ordinal (Likert)  | Frequency Respondent has work/school internet access|
+| INTPUB            | Ordinal (Likert)  | Frequency Respondent has internet access in public|
+| INTRNETUSE        | Ordinal (Likert)  | Frequency of internet use over past 12 months|
+| INTRUST           | Ordinal (Likert)  | How much Respondent trusts people they've only met online|
+| INTSEARCH         | Ordinal (Likert)  | How often Respondent uses internet for search|
+| INTSHARE          | Ordinal (Likert)  | How often Respondent uses internet for sharing photos/videos|
+| INTSKILL          | Ordinal (Likert)  | Respondent's skill at using the internet|
+| INTSTREAM         | Ordinal (Likert)  | How often Respondent uses internet for music/video|
+|INTSURF            | Ordinal (Likert)  | Respondent's skill at online searches|
+| INTVIEWS          | Ordinal (Likert)  | How often Respondent talks about politics online|
+| UNPLUG            | Ordinal (Likert)  | Amount Respondent reduced time spent on internet in last 12 months|
+
+```{r, message=FALSE}
+#| fig-height: 15
+
+digitalVarNames = c("INTRNETUSE", "INTPRFSSNL", "UNPLUG", "INTHOME", "INTPUB", "INTSKILL", "INTSURF", "INTLITERACY", "INTAPPS", "INTCOMM", "INTSHARE", "INTSEARCH", "INTGAME", "INTSTREAM", "INTFNCL", "INTMEET", "INTLNLY", "INTVIEWS", "INTRUST")
+digital.long <- data |> pivot_longer(all_of(digitalVarNames),names_to = "variable", values_to = "value")
+
+ggplot(digital.long, aes(x=value, color=variable,fill=variable)) +
+  facet_wrap(~variable, scales='free', ncol=3) +
+  geom_bar() +
+  theme(legend.position = "none")
+
+```
+
+Finally, below are histograms of variables related to the frequency of respondents attending various social activities as well as a variable that captures the respondent's general trust in other people.
+
+| Variable Name |Variable Type      | GSS Description           |
+|------------------|--------------------|-----------------------------------------------------|
+| SOCREL            | Ordinal (Likert)  | Frequency of spending evening with relatives |
+| SOCBAR            | Ordinal (Likert)  | Frequency of spending evening at bar |
+| SOCFREND          | Ordinal (Likert)  | Frequency of spending evening with friends |
+| SOCCOMMUN         | Ordinal (Likert)  | Frequency of spending evening with neighbor |
+| TRPPL             | Ordinal (Likert)  | Trust in others, 10 point scale |
+
+```{r, message=FALSE}
+#| fig-width: 7
+
+socialVarNames = c("SOCREL", "SOCOMMUN","SOCFREND","SOCBAR","TRPPL")
+social.long <- data |> pivot_longer(all_of(socialVarNames),names_to = "variable", values_to = "value")
+
+ggplot(social.long, aes(x=value, color=variable,fill=variable)) +
+  facet_wrap(~variable, scales='free', ncol=3) +
+  geom_bar() +
+  theme(legend.position = "none")
+```
 ### Modeling and Results
 
 

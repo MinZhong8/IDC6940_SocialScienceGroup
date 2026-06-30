@@ -1,0 +1,36 @@
+variable_name,description
+EDUC,Highest year of school completed
+CLASS,Subjective class identification
+HISPANIC,R Hispanic Specific
+WRKSTAT,Labor force status
+MARITAL,Marital status
+AGE,Age of respondent
+CHILDS,Number of children
+SEX,Respondents sex
+RELTRAD,Religious tradition
+ATTEND,How often R attends religious services
+RELPERSN,R consider self a religious person
+SOCREL,Spend evening with relatives
+SOCOMMUN,Spend evening with neighbor
+SOCFREND,Spend evening with friends
+SOCBAR,Spend evening at bar
+INTRNETUSE,Frequency of internet use over past 12 months
+INTPRFSSNL,Frequency R has work/school internet access
+UNPLUG,Amount R reduced time spent on internet in last 12 months
+INTHOME,Frequency R has home internet access
+INTPUB,Frequency R has internet access in public
+INTSKILL,R's skill at using the internet
+INTSURF,R's skill at online searches
+INTLITERACY,R's knowledge of online information discretion
+INTAPPS,R's skill at learning new software
+INTCOMM,How often R uses internet for communication
+INTSHARE,How often R uses internet for sharing photos/videos
+INTSEARCH,How often R uses internet for search
+INTGAME,How often R uses internet for video games
+INTSTREAM,How often R uses internet for music/video
+INTFNCL,How often R uses internet for financial transactions
+INTMEET,R more comfortable meeting people online?
+INTLNLY,R would feel lonely without internet?
+INTVIEWS,How often R talks about politics online
+INTRUST,How much R trusts people they've only met online
+TRPPL,"Trust in others, 10 point scale"
