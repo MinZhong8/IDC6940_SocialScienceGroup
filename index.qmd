@@ -61,6 +61,8 @@ library('factoextra')
 library('tidyverse')
 library('haven')
 library('here')
+library('knitr')
+library('kableExtra')
 ```
 ## Analysis and Results
 
@@ -143,8 +145,6 @@ data %>% write.csv('data.csv')
 This subset of the data can be easily loaded from the CSV file without taking up the multiple gigabytes of RAM that is used by the full dataset. This subset which will be used for further analysis shows 975 observations of 35 variables.
 ```{r}
 data <- read.csv('data.csv') %>% select(!X)
-
-print(paste("Dimensions of dataframe: ",dim(data)[1],"x", dim(data)[2]))
 ```
 
 #### Histograms of Variables
@@ -262,23 +262,73 @@ MCAdataDigital <- data |>
   select(all_of(digitalVarNames)) |>                        # selecting variables not in the excluded set
   mutate(across(everything(),likert2Boolean))           # applying my likert to boolean function
 
-MCAdataAll <- data |>
+MCAdata <- data |>
   select(!all_of(MCAexclude)) |>                        # selecting variables not in the excluded set
-  mutate(across(everything(),likert2Boolean))           # applying my likert to boolean function
+  mutate(across(everything(),likert2Boolean))      # applying my likert to boolean function
 
+#Create dataframe with both MCA vars and supp vars
+MCAdataWithSups <- cbind(MCAdata,suppVars) 
+
+#Creare a vector with the indices of all supplementary variables
+suppIndices = length(MCAdata)+1:length(MCAdataWithSups)
+
+#Create a vector with the indices of all quantitative variables (which should also be supplementary)
+supQuantInd <-  which(sapply(MCAdataWithSups,class) != 'factor')
+
+#create a vector of all qualitative variables
+QualInd <-  which(sapply(MCAdataWithSups,class) == 'factor')
+#create a vector of all SUPPLEMENTARY qualitative variables
+supQualInd <- QualInd[QualInd %in% suppIndices]
 ```
 
 
-#### MCA Analysis on Technological Variables
+#### MCA Analysis 
+An MCA analysis is run on all the varaibles relating to sociability and digital engagement. 
+```{r}
+res.mca <- MCA(MCAdata,graph=FALSE)
+res.mca.withsupps <- MCA(MCAdataWithSups,graph=FALSE,quanti.sup = supQuantInd,quali.sup = supQualInd)
+fviz_eig(res.mca)
+```
+As can be seen from the above scree plot, there is one dominant component which explains a relatively high percentage of the total variance, with the remaining components explaining a comparatively much lesser amount of variance.
+
 
 ```{r}
-mcaDigital <- MCA(MCAdataDigital,graph=FALSE)
-summary(mcaDigital)
+get_mca(res.mca)$contrib |> kable(digits=3) |> kable_styling() |> 
+  column_spec(2,color = ifelse(get_mca(res.mca)$contrib[,1] > median(get_mca(res.mca)$contrib[,1]), "red","black")) |>
+  column_spec(3,color = ifelse(get_mca(res.mca)$contrib[,2] > median(get_mca(res.mca)$contrib[,2]), "red","black")) |>
+  column_spec(4,color = ifelse(get_mca(res.mca)$contrib[,3] > median(get_mca(res.mca)$contrib[,3]), "red","black")) |>
+  column_spec(5,color = ifelse(get_mca(res.mca)$contrib[,4] > median(get_mca(res.mca)$contrib[,4]), "red","black")) |>
+  column_spec(6,color = ifelse(get_mca(res.mca)$contrib[,5] > median(get_mca(res.mca)$contrib[,5]), "red","black"))
 ```
 
+
+When the variables are plotted on the axis representing the principle components, we see clear patterns. In this plot, the variables with "_1" in the name represent the cases where respondents responded in a category higher than the median. Axis 1 appears to capture variation due to overall skill or usage of digital technology while dimension 2 captures variation due to sociability. The direction of these effects must be noted - higher values on Dimension 1 indicate a higher response category, which in turn reflects a lower usage of and skill with digital technologies. A higher vale on dimension 2 correlates with a higher frequency of social events.
 ```{r}
-plot.MCA(mcaDigital, choix='var')
-plot.MCA(mcaDigital,invisible= 'ind',label =c('var'))
+fviz_mca_var(res.mca, repel=T)
+```
+
+The below graph shows the correlation between each variable and the first two components. The same results are visible as above.
+```{r}
+fviz_mca_var(res.mca, repel=T, choice='var')
+```
+An interesting result of these graphs is the positioning of some digital engagement variables that appear to correlate more closely with dimension 2 compared to dimension 1. These variables include "INTMEET", "INTGAME", and 'INTTRUST', which are variables which capture some social dimension of digital engagement.
+
+A plot with dimensions 2 and 3 is shown below
+```{r}
+fviz_mca_var(res.mca, axes=c(2,3),repel=T, choice='var')
+```
+
+Plots can be made which include the supplementary variables. The plot shows that most of the supplementary variables are close to the origin, meaning that they have a very small correlation with the two dimesnions. However, 'age' and 'work status' both have a slightly higher correlation with both dimensions when compared with other suppelementary variables.
+```{r}
+fviz_mca_var(res.mca.withsupps, repel=T, choice='var')
+```
+
+Further analysis shows that a higher age is correlated with a higher value on both dimensions; this means higher age is correlated with less digital capital but greater social capital.
+```{r}
+fviz_mca_var(res.mca.withsupps, repel=T, choice='quanti.sup')
+```
+```{r}
+fviz_mca_var(res.mca.withsupps, repel=T, invisible='var')
 ```
 
 ### Conclusion
