@@ -150,6 +150,9 @@ data <- read.csv('data.csv') %>% select(!X)
 #### Histograms of Variables
 Our variables divide into two categories. First, there are variables relating to demographic information of the respondent such as age, sex, and marital status. These will not be used in the main MCA analysis but will be used as supplementary variables. The second category consists of the variables that will be used for MCA analysis, and consist of questions relating the respondent's usage of digital devices as well as questions relating to the respondent's social life.
 
+#### Demographic Variables (Supplementary Variables)
+The demographic profile of our sample ((n = 975)) shows a diverse but educated population. The distribution of education (EDUC) is centered on college-level education, with a median of 14 years of schooling. This indicates that our sample is more educated than the general U.S. population. Age (AGE) is roughly normally distributed with a slight left skew, centered around middle age (median ≈ 50–55). This suggests a mature respondent pool. Marital status (MARITAL) shows a plurality of married individuals, and labor force status (WRKSTAT) indicates that a majority are employed full-time. Interestingly, religious attendance (ATTEND) is highly skewed toward "Never," which matches the broader trend of secularization in American society.
+
 First, histograms of the supplemental demographic variables are shown below. The variable names are as follows:
 
 | Variable Name |Variable Type      | GSS Description           |
