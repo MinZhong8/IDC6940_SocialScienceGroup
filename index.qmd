@@ -260,7 +260,9 @@ MCAexclude = suppVarNames
 
 #creating dataframe that ONLY has supplementary variables
 suppVars = data |> select(all_of(suppVarNames)) |>
-  mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))      # here I'm making all the columns EXCEPT for EDUC, AGE, and CHILDS into factors because these three are numeric
+    mutate(HISPANIC = if_else(HISPANIC == 1, 1, 2)) |> # making hispanic a boolean
+  mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))  # here I'm making all the columns EXCEPT for EDUC, AGE, and CHILDS into factors because these three are numeric
+
 
 
 likert2Boolean <- function(x){
@@ -350,7 +352,7 @@ TODO: Just bullet points right now, need to write this up better
 
 * Some variables relating to digital technology actually appear to be better correlated with the latent variable associated with sociality. These variables are associated with social uses of digital technology, including using the internet for video games.
 
-* Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; Those who are retired have lower digital capital and lower social capital; Those whose work status is in school have a higher social capital and higher digital capital.
+* Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; Those who are retired have lower digital capital and lower social capital; Those whose work status is in school have a higher social capital and higher digital capital. It is likely that this is mostly a reflection of age as retired people tend to be older and students younger.
 
 
 ## References
