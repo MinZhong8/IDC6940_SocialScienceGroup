@@ -304,15 +304,15 @@ As can be seen from the above scree plot, there is one dominant component which 
 
 ```{r}
 get_mca(res.mca)$contrib |> kable(digits=3) |> kable_styling() |> 
-  column_spec(2,color = ifelse(get_mca(res.mca)$contrib[,1] > median(get_mca(res.mca)$contrib[,1]), "red","black")) |>
-  column_spec(3,color = ifelse(get_mca(res.mca)$contrib[,2] > median(get_mca(res.mca)$contrib[,2]), "red","black")) |>
-  column_spec(4,color = ifelse(get_mca(res.mca)$contrib[,3] > median(get_mca(res.mca)$contrib[,3]), "red","black")) |>
-  column_spec(5,color = ifelse(get_mca(res.mca)$contrib[,4] > median(get_mca(res.mca)$contrib[,4]), "red","black")) |>
-  column_spec(6,color = ifelse(get_mca(res.mca)$contrib[,5] > median(get_mca(res.mca)$contrib[,5]), "red","black"))
+  column_spec(2,color = ifelse(get_mca(res.mca)$contrib[,1] > 1, "red","black")) |>
+  column_spec(3,color = ifelse(get_mca(res.mca)$contrib[,2] > 1, "red","black")) |>
+  column_spec(4,color = ifelse(get_mca(res.mca)$contrib[,3] > 1, "red","black")) |>
+  column_spec(5,color = ifelse(get_mca(res.mca)$contrib[,4] > 1, "red","black")) |>
+  column_spec(6,color = ifelse(get_mca(res.mca)$contrib[,5] > 1, "red","black"))
 ```
 
 
-When the variables are plotted on the axis representing the principle components, we see clear patterns. In this plot, the variables with "_1" in the name represent the cases where respondents responded in a category higher than the median. Axis 1 appears to capture variation due to overall skill or usage of digital technology while dimension 2 captures variation due to sociability. The direction of these effects must be noted - higher values on Dimension 1 indicate a higher response category, which in turn reflects a lower usage of and skill with digital technologies. A higher vale on dimension 2 correlates with a higher frequency of social events.
+When the variables are plotted on the axis representing the principle components, we see clear patterns. In this plot, the variables with "_1" in the name represent the cases where respondents responded in a category higher than the median. Axis 1 appears to capture variation due to overall skill or usage of digital technology while dimension 2 captures variation due to sociability. The direction of these effects must be noted - higher values on Dimension 1 indicate a higher response category, which in turn reflects a lower usage of and skill with digital technologies. A higher vale on dimension 2 correlates with a lower frequency of social events and generally more pessimistic views on social interaction.
 ```{r}
 fviz_mca_var(res.mca, repel=T)
 ```
@@ -341,7 +341,16 @@ fviz_mca_var(res.mca.withsupps, repel=T, choice='quanti.sup')
 fviz_mca_var(res.mca.withsupps, repel=T, invisible='var')
 ```
 
-### Conclusion
+## Conclusion
+TODO: Just bullet points right now, need to write this up better
+
+* MCA analysis shows that much of the variation of variables relating to digital technology usage and can be explained by a single dimension which can seen as corresponding to the latent variable of "digital capital"
+
+* Variation in variables relating to socialization appear to be explained by a latent variable which is seen as corresponding to 'social capital'
+
+* Some variables relating to digital technology actually appear to be better correlated with the latent variable associated with sociality. These variables are associated with social uses of digital technology, including using the internet for video games.
+
+* Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; Those who are retired have lower digital capital and lower social capital; Those whose work status is in school have a higher social capital and higher digital capital.
 
 
 ## References
