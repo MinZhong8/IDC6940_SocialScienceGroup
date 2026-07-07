@@ -184,6 +184,13 @@ ggplot(supplementary.long, aes(x=value, color=variable,fill=variable)) +
 
 ```
 
+#### Digital Engagement Variables
+The digital engagement variables could be separated into three sets based on usage patterns. One set of variables is related to general proficiency and communication, including internet skill (INTSKILL), search ability (INTSURF), online communication (INTCOMM), and frequency of internet use (INTRNETUSE). These variables are heavily skewed toward the higher end of their scales (left-skewed).
+
+In contrast, another set of variables related to specific and non-essential online activities, including gaming (INTGAME) and streaming (INTSTREAM), is skewed toward the lower end (right-skewed). This suggests that while the sample is digitally capable, they do not engage in leisure-oriented online activities. However, financial transactions (INTFNCL) show a more evenly distributed pattern, likely because online banking and shopping have become necessary daily activities rather than optional leisure pursuits.
+
+A third group of variables includes online political discussion (INTVIEWS) and trust in online contacts (INTRUST). These variables show highly skewed distributions toward the lowest categories, suggesting a reluctance to engage in politically charged or high-risk online environments.
+
 Next, the histograms of variables relating to usage of and additutes towards digital technology are shown below:
 
 | Variable Name |Variable Type      | GSS Description           |
