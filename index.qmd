@@ -347,7 +347,26 @@ fviz_mca_var(res.mca.withsupps, repel=T, invisible='var')
 ```
 
 ## Conclusion
-TODO: Just bullet points right now, need to write this up better
+In this study, we apply Multiple Correspondence Analysis (MCA) to identify latent dimensions of digital engagement and social capital using categorical data from the 2024 General Social Survey. By analyzing 975 observations of 35 variables, we try to examine whether the association of digital engagement and social capital can be explained through a smaller number of underlying dimensions.
+
+Based on our analysis, there are two interpretable latent dimensions. MCA analysis shows that much of the variation of variables relating to digital technology usage and can be explained by a single dimension which can seen as corresponding to the latent variable of "digital capital." Similarly, variation in variables relating to socialization appear to be explained by another latent dimension, which we interpret as "social capital."
+
+An important finding is that some digital technology variables actually appeat to be better correlated with the latent variable associated with sociality. These variables include online gaming (INTGAME) and comfort meeting people online (INTMEET). It indicates ...
+
+Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; retired individuals show the same pattern; while those whose work status is in school have a higher social capital and higher digital capital. It is likely that this is mostly a reflection of age as retired people tend to be older and students younger.
+
+These findings demonstrate important implications for understand digital inequality in America.
+
+First, 
+Second,
+Third,
+
+This study has several limitations. As the sample (n=975) shows higher education background than general U.S. population. Meanwhile, transfer Likert scales into "above/below the median" for MCA analysis may cause losting some detail.
+
+Future research could extend this analysis...
+
+TODO: Just bullet points right now, need to write this up 
+
 
 * MCA analysis shows that much of the variation of variables relating to digital technology usage and can be explained by a single dimension which can seen as corresponding to the latent variable of "digital capital"
 
