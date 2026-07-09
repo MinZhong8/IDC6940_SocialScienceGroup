@@ -228,6 +228,9 @@ ggplot(digital.long, aes(x=value, color=variable,fill=variable)) +
 
 ```
 
+#### Social Variables (Active Variables)
+The social variables show an informative distribution. Frequency of interaction with relatives (SOCREL) and friends (SOCFREND) is spread across the scale, with a median of "Several Times a Week," indicating active social lives. However, interaction with neighbors (SOCOMMUN) is relatively lower, with a median at "Never" or "Once a Year," suggesting weaker neighborhood-based community ties. Bar attendance (SOCBAR) is similarly low, which may reflect age, lifestyle, or changing social habits. General trust in others (TRPPL) shows a near-normal distribution around the mid-point of the scale (median = 5), indicating moderate levels of social trust in the sample.
+
 Finally, below are histograms of variables related to the frequency of respondents attending various social activities as well as a variable that captures the respondent's general trust in other people.
 
 | Variable Name |Variable Type      | GSS Description           |
