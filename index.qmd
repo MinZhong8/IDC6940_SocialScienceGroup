@@ -351,22 +351,17 @@ In this study, we apply Multiple Correspondence Analysis (MCA) to identify laten
 
 Based on our analysis, there are two interpretable latent dimensions. MCA analysis shows that much of the variation of variables relating to digital technology usage and can be explained by a single dimension which can seen as corresponding to the latent variable of "digital capital." Similarly, variation in variables relating to socialization appear to be explained by another latent dimension, which we interpret as "social capital."
 
-An important finding is that some digital technology variables actually appeat to be better correlated with the latent variable associated with sociality. These variables include online gaming (INTGAME) and comfort meeting people online (INTMEET). It indicates ...
+An important finding is that some digital technology variables actually appear to be better correlated with the latent variable associated with the social capital dimension. These variables include online gaming (INTGAME), comfort meeting people online (INTMEET) and trust in online contact (INTRUST). It indicates digital capital and social capital are interact with each other.
 
 Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; retired individuals show the same pattern; while those whose work status is in school have a higher social capital and higher digital capital. It is likely that this is mostly a reflection of age as retired people tend to be older and students younger.
 
-These findings demonstrate important implications for understand digital inequality in America.
+This study has several limitations. As the sample (n=975) shows higher education background than general U.S. population. That may cause hard to generalize our finding s to lower educated population who might face more digital inequality. Meanwhile, we transferred 24 Likert-scale variables into binary "above/below the median" for MCA analysis, this simplification may cause lose some detail.
 
-First, 
-Second,
-Third,
+Future research could extend this analysis...Since the GSS data are cross-sectional, future research may incorporate more waves to explore causal direction. Furthermore, compare different groups of populations based on the latent structure, such like urban/rural, young/old, to see if the relationship between digital engagement and social capital looks the same or different across the groups.
 
-This study has several limitations. As the sample (n=975) shows higher education background than general U.S. population. Meanwhile, transfer Likert scales into "above/below the median" for MCA analysis may cause losting some detail.
 
-Future research could extend this analysis...
-
+(After polish the conclusion, this part will be deleted
 TODO: Just bullet points right now, need to write this up 
-
 
 * MCA analysis shows that much of the variation of variables relating to digital technology usage and can be explained by a single dimension which can seen as corresponding to the latent variable of "digital capital"
 
@@ -374,7 +369,7 @@ TODO: Just bullet points right now, need to write this up
 
 * Some variables relating to digital technology actually appear to be better correlated with the latent variable associated with sociality. These variables are associated with social uses of digital technology, including using the internet for video games.
 
-* Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; Those who are retired have lower digital capital and lower social capital; Those whose work status is in school have a higher social capital and higher digital capital. It is likely that this is mostly a reflection of age as retired people tend to be older and students younger.
+* Most demographic variables have low correlation with both digital and social capital; the strongest correlations are Age and employment status. Older people tend to have lower digital capital and lower social capital; Those who are retired have lower digital capital and lower social capital; Those whose work status is in school have a higher social capital and higher digital capital. It is likely that this is mostly a reflection of age as retired people tend to be older and students younger.)
 
 
 ## References
