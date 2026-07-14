@@ -304,7 +304,7 @@ res.mca <- MCA(MCAdata,graph=FALSE)
 res.mca.withsupps <- MCA(MCAdataWithSups,graph=FALSE,quanti.sup = supQuantInd,quali.sup = supQualInd)
 fviz_eig(res.mca)
 ```
-As can be seen from the above scree plot, there is one dominant component which explains a relatively high percentage of the total variance, with the remaining components explaining a comparatively much lesser amount of variance.
+As can be seen from the above scree plot, there is one dominant component which explains a relatively high percentage of the total variance, with the remaining components explaining a comparatively much lesser amount of variance. The biggest difference between people in this project is related to how they use technology and internet.
 
 
 ```{r}
@@ -318,6 +318,8 @@ get_mca(res.mca)$contrib |> kable(digits=3) |> kable_styling() |>
 
 
 When the variables are plotted on the axis representing the principle components, we see clear patterns. In this plot, the variables with "_1" in the name represent the cases where respondents responded in a category higher than the median. Axis 1 appears to capture variation due to overall skill or usage of digital technology while dimension 2 captures variation due to sociability. The direction of these effects must be noted - higher values on Dimension 1 indicate a higher response category, which in turn reflects a lower usage of and skill with digital technologies. A higher vale on dimension 2 correlates with a lower frequency of social events and generally more pessimistic views on social interaction.
+
+For example, the top contributors are INTSURF_1 (good at online searching) and INTERSKILL_1 (high self rated internet skills), each contributes 7.940% and 7.937% to Dimension 1. The following contributor is INTAPPS_1 (good at learning new apps) at 6.62%. Other important variables include frequent online searching (INTSEARCH_1, 4.73%), online communication (INTCOMM_1, 4.41%), and the ability to judge online information (INTLITERACY_1, 4.17%). Obviously people who score high in Dimension 1 are good with technology, use the internet frequently, and participate in a wide  variety of online activities. Conversely, people who score low are less internet usage, and participate in few online activities. This dimension captures the skill based aspect of digital inequality, indicating that differences in digital ability are the strongest factor in the survey.
 ```{r}
 fviz_mca_var(res.mca, repel=T)
 ```
