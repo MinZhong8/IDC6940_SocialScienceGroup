@@ -331,6 +331,10 @@ Dimension 4 captures basic internet access and usage frequency (INTHOME and INTR
 fviz_mca_var(res.mca, repel=T)
 ```
 
+This graph shows that high digital skills and frequent internet use (INTSKILL_1, INTSURF_1, INTAPPS_1, INTSEARCH_1, INTCOMM_1, INTRNETUSE_1, INTSTREAM_1) are all cluster on the right side of the graph, with high positive coordinates on Dimension 1. This confirms that these variables strongly define Digital Capital. Their opposite categories (INTSKILL_0, INTSURF_0) cluster on the left side, representing low digital skills and infrequent use.
+
+Social variables cluster in top (INTMEET_1, SOCFREND_1, SOCBAR_1) and bottom (INTRUST_1, SOCOMMUN_1) sides away from the origin on Dimension 2. Unlike Digital Capital, Social Capital is not a single, simple concept. Different types of social behavior may not always go together. For example, someone may comfortable meeting people online (top) but not trust online contacts (bottom). Or someone may trust online contacts but not be comfortable meeting them.
+
 The below graph shows the correlation between each variable and the first two components. The same results are visible as above.
 ```{r}
 fviz_mca_var(res.mca, repel=T, choice='var')

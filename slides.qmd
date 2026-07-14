@@ -1,7 +1,7 @@
 ---
-title: "Present a great story for data science projects"
-subtitle: "This is a Slide Template"
-author: "Students names (Advisor: Dr. Cohen)"
+title: "Identifying Latent Dimensions of Digital Engagement and Social Capital using the 2024 GSS"
+subtitle: "Social Survey Analytics Using MCA"
+author: "Matthew Beck<br>Min Zhong<br>Kaitlin Kosko<br>(Advisor: Dr. Cohen)"
 date: '`r Sys.Date()`'
 format:
   revealjs
