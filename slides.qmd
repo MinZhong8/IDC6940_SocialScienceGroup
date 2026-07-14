@@ -1,7 +1,10 @@
 ---
-title: "Identifying Latent Dimensions of Digital Engagement and Social Capital using the 2024 GSS"
+title: |
+  <span style="font-size:0.8em;">
+  Identifying Latent Dimensions of Digital Engagement and Social Capital using the 2024 GSS
+  </span>
 subtitle: "Social Survey Analytics Using MCA"
-author: "Matthew Beck<br>Min Zhong<br>Kaitlin Kosko<br>(Advisor: Dr. Cohen)"
+author: "Matthew Beck • Min Zhong • Kaitlin Kosko (Advisor: Dr. Cohen)"
 date: '`r Sys.Date()`'
 format:
   revealjs
