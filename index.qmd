@@ -346,7 +346,8 @@ A plot with dimensions 2 and 3 is shown below
 fviz_mca_var(res.mca, axes=c(2,3),repel=T, choice='var')
 ```
 
-Plots can be made which include the supplementary variables. The plot shows that most of the supplementary variables are close to the origin, meaning that they have a very small correlation with the two dimesnions. However, 'age' and 'work status' both have a slightly higher correlation with both dimensions when compared with other suppelementary variables.
+The graph below shows contributions of all active variables to Dimension 1 (explaining 19% of the variance) and Dimension 2 (explaining 7.3% of the variance), with supplementary demographic variables (like age, education, marital status, sex, etc.), and projected onto the same two-dimensional space. So we can see how demographic characteristics relate to Digital Capital (Dimension 1) and Social Capital (Dimension 2). The digital and social categories stay the same positions as in the previous graph: High digital skill variables (INTSKILL_1, INTSURF_1, INTAPPS_1, etc.) cluster on the right side, while social variables such as INTRUST, SOCFREND, and SOCBAR are positioned along Dimension 2. The most of the supplementary variables are close to the origin, meaning that they have a very small correlation with the two dimensions. However, 'age' and 'work status' both have a slightly higher correlation with both dimensions when compared with other supplementary variables.
+
 ```{r}
 fviz_mca_var(res.mca.withsupps, repel=T, choice='var')
 ```
