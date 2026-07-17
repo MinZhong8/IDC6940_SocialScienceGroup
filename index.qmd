@@ -16,6 +16,8 @@ execute:
 editor: 
   markdown: 
     wrap: 72
+nocite: |
+  @*
 ---
 
 
@@ -380,7 +382,3 @@ Future research should build on these findings by examining whether the relation
 
 
 ## References
----
-nocite: |
-  @*
----
