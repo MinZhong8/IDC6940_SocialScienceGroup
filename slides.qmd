@@ -363,6 +363,73 @@ fviz_mca_var(res.mca.withsupps, repel=T, invisible='var')
 
 :::::
 
+## Modeling and Results
+
+### Point Cloud by Racial Category
+
+::::: {style="font-size: 40%;"}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+```{r, warning=FALSE, echo=F}
+#| fig-width: 10
+#| fig-height: 8
+
+fviz_mca_ind(res.mca.withsupps, repel=T, label="none",addEllipses=T,habillage= 27, pointsize=1)+ guides(fill="none") + scale_color_discrete(labels=(c("White","Black","American Indian","Asian","Other","Hispanic")))
+```
+:::
+
+::: {.column width="40%"}
+
+- Overall, the separation of the racial demographic categories is low
+
+- The majority of responses are White, so the barycenter of the white demographic group will be close to the origin
+:::
+
+::::
+
+:::::
+
+## Modeling and Results
+
+### Point Cloud by Age quantile
+
+::::: {style="font-size: 40%;"}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+```{r, warning=FALSE, echo=F}
+#| fig-width: 10
+#| fig-height: 8
+
+agecats <- data |> mutate(agecat = case_when(
+  AGE <= quantile(AGE, 0:4/4)[2] ~ 1,
+  AGE <= quantile(AGE, 0:4/4)[3] ~ 2,
+  AGE <= quantile(AGE, 0:4/4)[4] ~ 3,
+  AGE <= quantile(AGE, 0:4/4)[5] ~ 4
+) |> as.factor()
+) |> select(agecat)
+
+MCAdata.with.agecats = cbind(MCAdata,agecats)
+
+res.mca.agecats <- MCA(MCAdata.with.agecats,graph=FALSE,quali.sup =25)
+fviz_mca_ind(res.mca.agecats, repel=T, label="none",addEllipses=T,habillage= 25, pointsize=1)+ guides(fill="none") + scale_color_discrete(labels=(c("1st Quartile","2nd Quartile", "3rd Quartile", "4th Quartile")))
+```
+:::
+
+::: {.column width="40%"}
+
+- When analyzing the age by quartile, we see a clearer seperation with the olderst quartile showing the biggest difference from the younger quartiles.
+
+- This also shows that each age quartile has lower social and digital capital than the previous quartiles
+:::
+
+::::
+
+:::::
+
 
 
 ## Conclusion

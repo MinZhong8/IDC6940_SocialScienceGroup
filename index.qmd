@@ -373,6 +373,30 @@ fviz_mca_var(res.mca.withsupps, repel=T, invisible='var')
 ```
 The MCA category plot displays the positions of the categorical variable levels across the first two dimensions. Categories that are located close together represent similar response patterns, while categories farther from the origin contribute more strongly to the underlying dimensions. Employment status (WRKSTAT), particularly WRKSTAT_5, is located furthest along Dimension 1, indicating that it has one of the strongest associations with the latent structure. Categories related to religious participation (ATTEND and RELTRAD), marital status (MARITAL), social relationships (RELPERSN), and social class (CLASS) are more clustered around the center, suggesting more moderate contributions to the two dimensions. Overall, the plot indicates that employment status contributes more strongly to the latent dimensions than most of the other demographic categories.
 
+```{r}
+
+
+fviz_mca_ind(res.mca.withsupps, repel=T, label="none",addEllipses=T,habillage= 27, pointsize=1)+ guides(fill="none") + scale_color_discrete(labels=(c("White","Black","American Indian","Asian","Other","Hispanic")))
+```
+
+```{r}
+
+agecats <- data |> mutate(agecat = case_when(
+  AGE <= quantile(AGE, 0:4/4)[2] ~ 1,
+  AGE <= quantile(AGE, 0:4/4)[3] ~ 2,
+  AGE <= quantile(AGE, 0:4/4)[4] ~ 3,
+  AGE <= quantile(AGE, 0:4/4)[5] ~ 4
+) |> as.factor()
+) |> select(agecat)
+
+MCAdata.with.agecats = cbind(MCAdata,agecats)
+
+res.mca.agecats <- MCA(MCAdata.with.agecats,graph=FALSE,quali.sup =25)
+fviz_mca_ind(res.mca.agecats, repel=T, label="none",addEllipses=T,habillage= 25, pointsize=1)+ guides(fill="none") + scale_color_discrete(labels=(c("1st Quartile","2nd Quartile", "3rd Quartile", "4th Quartile")))
+```
+
+The above two plots show the point cloud of individuals categorized by two of the demographic supplementary variables and with confidence elipses; in the first, they are categorized according to race and in the second by the age quartile. As can be seen, there is poor seperation between the racial groups, with most of the confidence elipses overlapping, though it is clear that there are some differences. As the majority of the survey sample was white, the barycenter of the white demographic group is close to the origin of the plot and so the locations of the other groups can be seen as showing the difference compared to the white group. Overall, Asian-Americans appear to be associated with both moderately higher social and digital capital. The "Other" Category also was notably lower in social capital. When looking at the graph which categorizes individuals by age quartile, a greater degree of separation between categories is apparent, though there is still some overlap. The oldest quartile appears to have the greatsertt difference from the three younger quartiles, though each successive quartile shows a decrease in both social and digital capital.
+
 ## Conclusion
 This study applied Multiple Correspondence Analysis (MCA) to examine latent dimensions of digital engagement and social capital using categorical data from the 2024 General Social Survey (GSS). Using 975 observations and 35 categorical variables, the analysis explored whether relationships among measures of digital engagement and social connectedness could be explained by a smaller number of underlying dimensions.
 
