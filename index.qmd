@@ -95,6 +95,8 @@ variables <- c(
   'RELTRAD', #This is also religion, but a newer, more inclusive. the RELIG variable is a holdeover from earlier surveys
   'ATTEND', #frequency of attending religious services
   'RELPERSN', #strength of religious self-id
+  'RELACTIV', #Frequency of attending religious activites other than service
+
 
   
   ## General Attitudes
@@ -137,11 +139,19 @@ variables <- c(
   'TRPPL' #Trust in others
 )
 
-
 #creating a subset of data including just the selected variables and removing all observations that contain NA values
 data <- allGSSdata %>% select(variables) %>% na.omit()
 
-summary(data)
+
+#Recoding RACECEN1 to have fewer categories
+data <- data |> mutate(RACECEN1.mod = RACECEN1 |> recode_values(
+  1 ~ 1, #White
+  2 ~ 2, #Black
+  3 ~ 3, #American Indian or Alaskan Native
+  c(4,5,6,7,8,9,10) ~ 4, # Asian
+  c(14,15) ~ 5, # Other
+  16 ~ 6 # Hispanic
+)) |> select(!RACECEN1)
 
 #exporting dataframe to csv file
 data %>% write.csv('data.csv')
@@ -163,13 +173,14 @@ First, histograms of the supplemental demographic variables are shown below. The
 | Variable Name |Variable Type      | GSS Description           |
 |------------------|--------------------|-----------------------------------------------------|
 | AGE               | Numeric (Integer) | Age of Respondent     |
-|ATTEND             | Ordinal           | How often Respondent attends religious services|
+|ATTEND             | Ordinal            | How often Respondent attends religious services|
 |CHILDS             | Numeric (Integer) | Number of children|
 |CLASS              | Ordinal           | Subjective class identification|
 |EDUC               | Numeric (Integer) | Highest year of school completed|
-|HISPANIC           | Categorical       | Respondent Hispanic Specific|
 |MARITAL            | Categorical       | Marital Status of Respondent|
+| RACECEN1.mod          | Categorical       | Race of Respondent (NOTE: recoded from original to have fewer categories)|
 |RELPERSN           | Ordinal (Likert)  | Respondent consider self a religious person |
+| RELACTIV          | Ordinal           | Frequency of attending religious activities other than services |
 |RELTRAD            | Categorical       | Religious tradition |
 | SEX               | Categorical       | Respondents sex |
 | WRKSTAT           | Categorical       | Labor force status |
@@ -178,7 +189,7 @@ First, histograms of the supplemental demographic variables are shown below. The
 ```{r, message=FALSE}
 #| fig-height: 7
 
-suppVarNames = c("EDUC","CLASS","HISPANIC","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN")
+suppVarNames = c("EDUC","CLASS","RACECEN1.mod","WRKSTAT","MARITAL","AGE","CHILDS","SEX","RELTRAD","ATTEND","RELPERSN", "RELACTIV")
 
 supplementary.long <- data |> pivot_longer(all_of(suppVarNames),names_to = "variable", values_to = "value")
 
@@ -266,21 +277,16 @@ When running MCA analysis, an $IxJ$ indicator matrix is created where $I$ is the
 #data columns to exclude from MCA
 MCAexclude = suppVarNames
 
-#creating dataframe that ONLY has supplementary variables
-suppVars = data |> select(all_of(suppVarNames)) |>
-    mutate(HISPANIC = if_else(HISPANIC == 1, 1, 2)) |> # making hispanic a boolean
-  mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))  # here I'm making all the columns EXCEPT for EDUC, AGE, and CHILDS into factors because these three are numeric
-
-
-
 likert2Boolean <- function(x){
   (x>median(data[[cur_column()]])) |>         #this will be a boolean that will be true if x is greater than the median of the column
     as.integer() |> as.factor()               #then turning boolean into an integer for ease of reading graph and then into a factor
 }
 
-MCAdataDigital <- data |>
-  select(all_of(digitalVarNames)) |>                        # selecting variables not in the excluded set
-  mutate(across(everything(),likert2Boolean))           # applying my likert to boolean function
+#creating dataframe that ONLY has supplementary variables
+suppVars = data |> select(all_of(suppVarNames)) |>
+  mutate(across(all_of(c("ATTEND", "RELPERSN", "RELACTIV")),likert2Boolean)) |>
+  mutate(across(!all_of(c("EDUC","AGE","CHILDS")),factor))  # here I'm making all the columns EXCEPT for EDUC, AGE, and CHILDS into factors because these three are numeric
+
 
 MCAdata <- data |>
   select(!all_of(MCAexclude)) |>                        # selecting variables not in the excluded set

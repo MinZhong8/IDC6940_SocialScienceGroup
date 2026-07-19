@@ -10,7 +10,7 @@ variables <- c(
   ## Demographics
   'EDUC', #level of education
   'CLASS', #self-assessed class standing
-  'HISPANIC', #id as hispanic
+  'RACECEN1', # Race
   'WRKSTAT', #employment status
   'MARITAL', #marital status
   'AGE', #age
@@ -22,6 +22,7 @@ variables <- c(
   'RELTRAD', #This is also religion, but a newer, more inclusive. the RELIG variable is a holdeover from earlier surveys
   'ATTEND', #frequency of attending religious services
   'RELPERSN', #strength of religious self-id
+  'RELACTIV', #Frequency of attending religious activites other than service
 
   
   ## General Attitudes
@@ -68,7 +69,22 @@ variables <- c(
 #creating a subset of data including just the selected variables and removing all observations that contain NA values
 data <- allGSSdata %>% select(variables) %>% na.omit()
 
-summary(data)
+
+#Recoding RACECEN1 to have fewer categories
+data <- data |> mutate(RACECEN1.mod = RACECEN1 |> recode_values(
+  1 ~ 1,
+  2 ~ 2,
+  3 ~ 3,
+  c(4,5,6,7,8,9,10) ~ 4,
+  c(14,15) ~ 5,
+  16 ~ 6
+)) |> select(!RACECEN1)
+
+
+
+
+#exporting dataframe to csv file
+data %>% write.csv('data.csv')
 
 
 #Exporting variable names and descriptions to CSV file
@@ -82,5 +98,4 @@ labels_vector <- map_chr(1:n, function(x) attr(data[[x]], "label") )
 variable_name <- names(data)
 tibble(variable_name, description = labels_vector) %>% write_csv('VariableDescriptions.csv')
 
-#exporting dataframe to csv file
-data %>% write.csv('data.csv')
+

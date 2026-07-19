@@ -1,7 +1,7 @@
 variable_name,description
 EDUC,Highest year of school completed
 CLASS,Subjective class identification
-HISPANIC,R Hispanic Specific
+RACECEN1,"What is R's race, first mention"
 WRKSTAT,Labor force status
 MARITAL,Marital status
 AGE,Age of respondent
@@ -10,6 +10,7 @@ SEX,Respondents sex
 RELTRAD,Religious tradition
 ATTEND,How often R attends religious services
 RELPERSN,R consider self a religious person
+RELACTIV,How often does R take part in relig activities
 SOCREL,Spend evening with relatives
 SOCOMMUN,Spend evening with neighbor
 SOCFREND,Spend evening with friends
